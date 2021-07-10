@@ -2,7 +2,7 @@
 const mysql = require('mysql2/promise')
 const SQL = require('sql-template-strings')
 
-if (process.env.NODE_END !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 

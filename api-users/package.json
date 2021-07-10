@@ -4,7 +4,6 @@
   "description": "This is a Users API",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm install",
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=dev nodemon index.js"
   },
