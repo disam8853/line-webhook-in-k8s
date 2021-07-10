@@ -1,0 +1,74 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a Users API"
+  version: "1.0.0"
+  title: "Users API for LINE webhook in k8s"
+  contact:
+    email: "wang.sam33@gmail.com"
+tags:
+- name: "users"
+  description: "All things about users"
+paths:
+  /users:
+    get:
+      tags:
+      - "users"
+      summary: "searches user by LINE UID."
+      description: "By passing in the LINE UID, you can search for\nspecific user.\n"
+      operationId: "getUserByLuid"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "luid"
+        in: "query"
+        description: "pass specific user's LINE UID to search."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "search results matching criteria"
+          schema:
+            $ref: "#/definitions/User"
+        "400":
+          description: "bad input parameter"
+        "404":
+          description: "user not found"
+      x-swagger-router-controller: "Users"
+  /register:
+    post:
+      tags:
+      - "users"
+      summary: "adds an inventory item"
+      description: "Register a LINE user to DB."
+      operationId: "registerUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "luid"
+        description: "To register a user, provide his/her LINE UID."
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "201":
+          description: "user registered"
+        "400":
+          description: "invalid input, object invalid"
+        "409":
+          description: "an existing user already registers"
+      x-swagger-router-controller: "Users"
+definitions:
+  User:
+    type: "object"
+    required:
+    - "luid"
+    properties:
+      luid:
+        type: "string"
+        example: "U4af4980629..."
+    example:
+      luid: "U4af4980629..."
