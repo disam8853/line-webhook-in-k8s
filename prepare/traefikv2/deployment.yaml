@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    prometheus.io/port: http-metrics
+    prometheus.io/scrape: "true"
+  labels:
+    app: traefik
+  name: traefik
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: traefik
+  template:
+    metadata:
+      labels:
+        app: traefik
+    spec:
+      containers:
+      - args:
+        - --log.level=DEBUG
+        - --api
+        - --api.dashboard
+        - --api.insecure
+        - --entrypoints.web.address=:80
+        - --entrypoints.websecure.address=:443
+        - --providers.kubernetescrd
+        - --providers.kubernetesingress
+        - --accesslog=true
+        image: traefik:v2.4
+        name: traefik
+        ports:
+        - containerPort: 80
+          name: web
+        - containerPort: 443
+          name: websecure
+        - containerPort: 8080
+          name: admin
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+      serviceAccountName: traefik-ingress-controller

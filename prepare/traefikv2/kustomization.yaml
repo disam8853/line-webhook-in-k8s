@@ -1,0 +1,8 @@
+namespace: default
+
+resources:
+  - serviceaccount.yaml
+  - crd.yaml
+  - rbac.yaml
+  - deployment.yaml
+  - service.yaml
