@@ -1,4 +1,23 @@
 'use strict'
+const mysql = require('mysql2/promise')
+const SQL = require('sql-template-strings')
+
+if (process.env.NODE_END !== 'production') {
+  require('dotenv').config()
+}
+
+const DB_HOST = process.env.DB_HOST
+const DB_USER = process.env.DB_USER
+const DB_NAME = process.env.DB_NAME
+const DB_PASSWORD = process.env.DB_PASSWORD
+
+const pool = mysql.createPool({
+  host: DB_HOST,
+  user: DB_USER,
+  database: DB_NAME,
+  password: DB_PASSWORD,
+  connectionLimit: 2,
+})
 
 /**
  * searches user by LINE UID.
@@ -8,15 +27,13 @@
  * returns User
  **/
 exports.getUserByLuid = function (luid) {
-  return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples['application/json'] = {
-      luid: 'U4af4980629...',
-    }
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await _getUserByLuid(luid)
+      if (!res) return reject({ code: 404, reason: 'User not found' })
+      resolve(res)
+    } catch (err) {
+      reject({ code: err.code || 500, err })
     }
   })
 }
@@ -28,8 +45,25 @@ exports.getUserByLuid = function (luid) {
  * luid User To register a user, provide his/her LINE UID.
  * no response value expected for this operation
  **/
-exports.registerUser = function (luid) {
-  return new Promise(function (resolve, reject) {
-    resolve()
+exports.registerUser = function (user) {
+  return new Promise(async (resolve, reject) => {
+    const existUser = await _getUserByLuid(user.luid)
+    if (existUser) {
+      return reject({ code: 400, reason: 'User has already registered' })
+    }
+
+    const stmt = SQL`INSERT INTO user (LINE_UID) VALUES (${user.luid})`
+    try {
+      await pool.query(stmt)
+      resolve(200)
+    } catch (err) {
+      reject({ code: 500, err })
+    }
   })
+}
+
+async function _getUserByLuid(luid) {
+  const stmt = SQL`SELECT * FROM user WHERE LINE_UID=${luid}`
+  const [rows] = await pool.query(stmt)
+  return rows[0]
 }

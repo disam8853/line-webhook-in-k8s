@@ -10,7 +10,7 @@ tags:
 - name: "users"
   description: "All things about users"
 paths:
-  /users:
+  /users/{luid}:
     get:
       tags:
       - "users"
@@ -21,7 +21,7 @@ paths:
       - "application/json"
       parameters:
       - name: "luid"
-        in: "query"
+        in: "path"
         description: "pass specific user's LINE UID to search."
         required: true
         type: "string"
@@ -48,7 +48,7 @@ paths:
       - "application/json"
       parameters:
       - in: "body"
-        name: "luid"
+        name: "user"
         description: "To register a user, provide his/her LINE UID."
         required: true
         schema:

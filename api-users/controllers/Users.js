@@ -10,17 +10,17 @@ module.exports.getUserByLuid = function getUserByLuid(req, res, next) {
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      utils.writeJson(res, utils.respondWithCode(response.code, response))
     })
 }
 
 module.exports.registerUser = function registerUser(req, res, next) {
-  var luid = req.swagger.params['luid'].value
-  Users.registerUser(luid)
+  var user = req.swagger.params['user'].value
+  Users.registerUser(user)
     .then(function (response) {
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      utils.writeJson(res, utils.respondWithCode(response.code, response))
     })
 }
