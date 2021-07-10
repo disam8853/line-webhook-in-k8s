@@ -1,0 +1,6 @@
+FROM node:16.4
+COPY . /app
+WORKDIR /app
+RUN yarn install --prod
+EXPOSE 8080
+ENTRYPOINT ["yarn", "start"]
