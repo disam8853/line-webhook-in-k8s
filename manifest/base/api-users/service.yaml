@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: api-users
+spec:
+  selector:
+    k8s-app: api-users
+  ports:
+    - protocol: TCP
+      port: 8080

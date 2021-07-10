@@ -1,0 +1,14 @@
+namespace: line-beta
+
+resources:
+- ../../../base/api-users
+- resources/ingressroute.yaml
+
+replicas:
+  - name: api-users
+    count: 1
+
+configMapGenerator:
+- name: api-users-config
+  envs:
+  - config/config.properties

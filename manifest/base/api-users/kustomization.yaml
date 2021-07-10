@@ -1,0 +1,5 @@
+namespace: line-beta
+
+resources:
+- deployment.yaml
+- service.yaml

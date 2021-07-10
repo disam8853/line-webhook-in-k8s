@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: api-users
+  labels:
+    k8s-app: api-users
+spec:
+  selector:
+    matchLabels:
+      k8s-app: api-users
+  template:
+    metadata:
+      labels:
+        k8s-app: api-users
+        name: api-users
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - image: disam8853/api-users
+        name: api-users
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+           name: api-users-config

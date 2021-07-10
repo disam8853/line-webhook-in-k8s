@@ -1,3 +1,4 @@
 resources:
 - kind/metallb
 - traefikv2
+- namespace.yaml
