@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: webhook
+spec:
+  selector:
+    k8s-app: webhook
+  ports:
+    - protocol: TCP
+      port: 8000

@@ -3,3 +3,4 @@ namespace: line-beta
 resources:
 - api-users
 - register-web
+- webhook

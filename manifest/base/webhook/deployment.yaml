@@ -1,0 +1,28 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: webhook
+  labels:
+    k8s-app: webhook
+spec:
+  selector:
+    matchLabels:
+      k8s-app: webhook
+  template:
+    metadata:
+      labels:
+        k8s-app: webhook
+        name: webhook
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - image: disam8853/webhook
+        name: webhook
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: webhook-config
+        - secretRef:
+            name: webhook-secret

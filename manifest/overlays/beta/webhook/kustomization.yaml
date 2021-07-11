@@ -1,0 +1,19 @@
+namespace: line-beta
+
+resources:
+- ../../../base/webhook
+- resources/ingressroute.yaml
+
+replicas:
+  - name: webhook
+    count: 1
+
+configMapGenerator:
+- name: webhook-config
+  envs:
+  - config/config.properties
+
+secretGenerator:
+- name: webhook-secret
+  envs:
+  - config/secret.properties
