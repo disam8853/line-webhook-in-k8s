@@ -23,4 +23,6 @@ spec:
         - containerPort: 8000
         envFrom:
         - configMapRef:
-           name: register-web-server-config
+            name: register-web-server-config
+        - secretRef:
+            name: register-web-server-secret
