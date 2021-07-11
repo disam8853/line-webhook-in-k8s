@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: register-web-server
+spec:
+  selector:
+    k8s-app: register-web-server
+  ports:
+    - protocol: TCP
+      port: 8000

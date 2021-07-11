@@ -18,6 +18,7 @@ spec:
       containers:
       - image: disam8853/api-users
         name: api-users
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         envFrom:

@@ -1,5 +1,5 @@
 namespace: line-beta
 
 resources:
-- api-users
-- register-web
+- client
+- server

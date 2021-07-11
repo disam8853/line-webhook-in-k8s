@@ -1,0 +1,18 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: register-web-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Path(`/`) || PathPrefix(`/static`)
+    kind: Rule
+    services:
+    - name: register-web-client
+      port: 80
+  - match: Path(`/register`) || Path(`/config`)
+    kind: Rule
+    services:
+    - name: register-web-server
+      port: 8000

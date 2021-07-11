@@ -1,0 +1,16 @@
+namespace: line-beta
+
+resources:
+- ../../../base/register-web
+- resources/ingressroute.yaml
+
+replicas:
+- name: register-web-client
+  count: 1
+- name: register-web-server
+  count: 1
+
+configMapGenerator:
+- name: register-web-server-config
+  envs:
+  - config/config.properties

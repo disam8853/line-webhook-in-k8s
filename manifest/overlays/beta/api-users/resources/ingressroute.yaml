@@ -4,7 +4,7 @@ metadata:
   name: api-users-ingress
 spec:
   entryPoints:
-    - websecure
+    - web
   routes:
   - match: PathPrefix(`/users`) || PathPrefix(`/register`) || PathPrefix(`/docs`) || PathPrefix(`/api-docs`)
     kind: Rule
