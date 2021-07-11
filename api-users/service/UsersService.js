@@ -50,9 +50,7 @@ exports.getUserByLuid = function (luid) {
 exports.registerUser = function (user) {
   return new Promise(async (resolve, reject) => {
     const existUser = await _getUserByLuid(user.luid)
-    if (existUser) {
-      return reject({ code: 400, reason: 'User has already registered' })
-    }
+    if (existUser) return resolve()
 
     const stmt = SQL`INSERT INTO user (LINE_UID) VALUES (${user.luid})`
     try {
