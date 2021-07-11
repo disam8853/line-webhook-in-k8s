@@ -14,7 +14,6 @@ spec:
         k8s-app: register-web-server
         name: register-web-server
     spec:
-      terminationGracePeriodSeconds: 60
       containers:
       - image: disam8853/register-web-server
         name: register-web-server
