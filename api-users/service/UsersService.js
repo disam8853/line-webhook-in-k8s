@@ -40,6 +40,18 @@ exports.getUserByLuid = function (luid) {
   })
 }
 
+exports.getAllUsers = function () {
+  return new Promise(async (resolve, reject) => {
+    const stmt = SQL`SELECT * FROM user`
+    try {
+      const [rows] = await pool.query(stmt)
+      resolve(rows)
+    } catch (err) {
+      reject({ code: 500, err })
+    }
+  })
+}
+
 /**
  * adds an inventory item
  * Register a LINE user to DB.

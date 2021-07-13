@@ -14,6 +14,16 @@ module.exports.getUserByLuid = function getUserByLuid(req, res, next) {
     })
 }
 
+module.exports.getAllUsers = function getAllUsers(req, res, next) {
+  Users.getAllUsers()
+    .then(function (response) {
+      utils.writeJson(res, response)
+    })
+    .catch(function (response) {
+      utils.writeJson(res, utils.respondWithCode(response.code, response))
+    })
+}
+
 module.exports.registerUser = function registerUser(req, res, next) {
   var user = req.swagger.params['user'].value
   Users.registerUser(user)

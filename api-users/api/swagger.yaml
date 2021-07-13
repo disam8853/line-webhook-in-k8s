@@ -10,6 +10,27 @@ tags:
 - name: "users"
   description: "All things about users"
 paths:
+  /users:
+    get:
+      tags:
+      - "users"
+      summary: "get all users"
+      description: "get all users"
+      operationId: "getAllUsers"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "search results matching criteria"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/User"
+        "400":
+          description: "bad input parameter"
+        "404":
+          description: "user not found"
+      x-swagger-router-controller: "Users"
   /users/{luid}:
     get:
       tags:
