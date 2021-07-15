@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: push-msg
+spec:
+  schedule: '*/5 * * * *'
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 7
+  failedJobsHistoryLimit: 3
+  startingDeadlineSeconds: 60
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: push-msg
+              image: disam8853/push-msg
+              envFrom:
+                - configMapRef:
+                    name: webhook-config
+                - secretRef:
+                    name: webhook-secret
+              resources:
+                requests:
+                  cpu: '500m'
+                  memory: 1024Mi
+                limits:
+                  cpu: '500m'
+                  memory: 1024Mi

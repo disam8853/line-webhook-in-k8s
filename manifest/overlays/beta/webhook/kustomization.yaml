@@ -2,6 +2,7 @@ namespace: line-beta
 
 resources:
 - ../../../base/webhook
+- resources/cronjob.yaml
 - resources/ingressroute.yaml
 
 replicas:
