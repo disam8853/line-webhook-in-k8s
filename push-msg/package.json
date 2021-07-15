@@ -1,0 +1,16 @@
+{
+  "name": "push-msg",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "NODE_ENV=production node ./index.js",
+    "dev": "NODE_ENV=dev node ./index.js"
+  },
+  "dependencies": {
+    "@line/bot-sdk": "^7.3.0",
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
+  }
+}

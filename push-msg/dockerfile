@@ -1,0 +1,5 @@
+FROM node:16.4
+COPY . /app
+WORKDIR /app
+RUN yarn install --prod
+ENTRYPOINT [ "yarn", "start" ]
