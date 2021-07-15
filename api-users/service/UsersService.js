@@ -35,6 +35,7 @@ exports.getUserByLuid = function (luid) {
       if (!res) return reject({ code: 404, reason: 'User not found' })
       resolve(res)
     } catch (err) {
+      console.log(err)
       reject({ code: err.code || 500, err })
     }
   })
@@ -71,6 +72,7 @@ exports.registerUser = function (user) {
       await pool.query(stmt)
       resolve(200)
     } catch (err) {
+      console.log(err)
       reject({ code: 500, err })
     }
   })
@@ -79,5 +81,6 @@ exports.registerUser = function (user) {
 async function _getUserByLuid(luid) {
   const stmt = SQL`SELECT * FROM user WHERE LINE_UID=${luid}`
   const [rows] = await pool.query(stmt)
-  return { luid: rows[0].LINE_UID }
+  if (rows[0]) return { luid: rows[0].LINE_UID }
+  else return null
 }
