@@ -30,7 +30,7 @@ This project leverages K8S features to run a various-functioned chatbot system, 
 ![Flow chart](chart.png)
 
 - User is required to signup through `Register frontend` and `Register backend`
-- `Register backend` will store user's information to database through `Users API`.
-- User sends message to LINE which sends a webhook event to our `Webhook` service
+- `Register backend` stores user's information to database through `Users API`
+- User sends message via LINE App which sends a webhook event to our `Webhook` service
 - `Webhook` handles webook events from LINE and authenticates with `Users API`
 - `CronJob` executes pushing messages scripts regularly
